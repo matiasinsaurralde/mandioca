@@ -41,7 +41,7 @@ defmodule Mandioca.Proxy do
     receive do
       {:tesla_response, res} ->
 
-        if conn.method == "GET"  do
+        if conn.method == "GET" and !cached_item  do
           Mandioca.Cache.store( url, res )
         end
 
