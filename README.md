@@ -11,7 +11,9 @@ This project is part of the [hack.summit() Virtual Hackathon](https://www.koding
 
 ## Running
 
-```iex -S mix```
+```mix phoenix.server```
+
+```iex -S mix phoenix.server```
 
 ## Benchmark (using wrk2)
 
