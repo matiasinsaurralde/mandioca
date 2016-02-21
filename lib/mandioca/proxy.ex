@@ -34,8 +34,6 @@ defmodule Mandioca.Proxy do
             status = cached_item.status
             body = cached_item.body
 
-            IO.puts("from cache")
-
             send_resp( conn, status, body )
           else
             Tesla.get( url, respond_to: self )
