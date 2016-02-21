@@ -34,6 +34,7 @@ config :phoenix, :stacktrace_depth, 20
 
 # Configure your database
 config :mandioca, Mandioca.Repo,
+  hostname: "localhost",
   adapter: Mongo.Ecto,
   database: "mandioca_dev",
   pool_size: 10
