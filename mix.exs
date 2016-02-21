@@ -3,6 +3,9 @@ defmodule Mandioca.Mixfile do
 
   def project do
     [app: :mandioca,
+     name: "Mandioca",
+     source_url: "https://github.com/matiasinsaurralde/mandioca",
+     homepage_url: "http://github.com/matiasinsaurralde/mandioca",
      version: "0.0.1",
      elixir: "~> 1.0",
      elixirc_paths: elixirc_paths(Mix.env),
@@ -10,7 +13,8 @@ defmodule Mandioca.Mixfile do
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      aliases: aliases,
-     deps: deps]
+     deps: deps,
+     docs: [ extras: [ "README.md" ]]]
   end
 
   # Configuration for the OTP application.
@@ -40,7 +44,9 @@ defmodule Mandioca.Mixfile do
      {:cowboy, "~> 1.0"},
      {:tesla, "~> 0.2.1"},
      {:ibrowse, github: "cmullaparthi/ibrowse", ref: "b5c705c" },
-     {:exjsx, "~> 3.1.0"}]
+     {:exjsx, "~> 3.1.0"},
+     {:earmark, "~> 0.1", only: :dev},
+     {:ex_doc, "~> 0.11", only: :dev}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
