@@ -31,7 +31,8 @@ defmodule Mandioca.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [{:phoenix, "~> 1.1.4"},
-     {:mongodb_ecto, ">= 0.0.0"},
+     {:mongodb_ecto, git: "git@github.com:michalmuskala/mongodb_ecto.git", ref: "164d1ab42670f3059370a2c290be4714faaf5761"},
+     {:ecto, "1.0.0", override: true},
      {:phoenix_ecto, "~> 2.0"},
      {:phoenix_html, "~> 2.4"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
