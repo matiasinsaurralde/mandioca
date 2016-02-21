@@ -22,4 +22,6 @@ This project is part of the [hack.summit() Virtual Hackathon](https://www.koding
 - [Mauro Gavilan](https://github.com/mauroot)
 - [Matias Insaurralde](https://github.com/matiasinsaurralde)
 
+![Recommendation](http://sd.keepcalm-o-matic.co.uk/i/keep-calm-and-mandioca.png)
+
 Based on this skeleton: https://github.com/dendeer/simple_plug
