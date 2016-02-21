@@ -15,10 +15,13 @@ defmodule Mandioca do
       # worker(Mandioca.Worker, [arg1, arg2, arg3]),
     ]
 
+    Mandioca.Cache.prepare()
+
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Mandioca.Supervisor]
     Supervisor.start_link(children, opts)
+
   end
 
   # Tell Phoenix to update the endpoint configuration
@@ -27,4 +30,5 @@ defmodule Mandioca do
     Mandioca.Endpoint.config_change(changed, removed)
     :ok
   end
+
 end
