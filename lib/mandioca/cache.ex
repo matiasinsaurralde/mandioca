@@ -6,9 +6,9 @@ defmodule Mandioca.Cache do
 
   def exists( url ) do
     try do
-      :ets.lookup_element( :http_cache, url, 2 )
+      :ets.lookup_element( :mandioca_cache, url, 2 )
     rescue
-      e in ArgumentError -> []
+      e in ArgumentError -> nil
     end
   end
 

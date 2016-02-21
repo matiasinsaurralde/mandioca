@@ -25,11 +25,21 @@ defmodule Mandioca.Proxy do
     status = 404
     body = "Error"
 
+    cached_item = Mandioca.Cache.exists( url )
+
     case conn.method do
       "GET" ->
-          response = Tesla.get( url )
-          status = response.status
-          body = response.body
+          if cached_item do
+            status = cached_item.status
+            body = cached_item.body
+
+          else
+            response = Tesla.get( url )
+            status = response.status
+            body = response.body
+
+            Mandioca.Cache.store( url, response )
+          end
       "POST" ->
           IO.puts( "This is a POST request")
       _ ->
