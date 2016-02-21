@@ -17,17 +17,34 @@ defmodule Mandioca.Proxy do
   end
 
   def handle_request( conn, api ) do
-    IO.inspect( conn )
+    # IO.inspect( conn )
 
     path = String.replace( conn.request_path, "/#{api.slug}", "" )
+    url = "#{api.endpoint_url}#{path}"
 
-    
-    send_resp( conn, 200, ":)")
+    status = 404
+    body = "Error"
+
+    case conn.method do
+      "GET" ->
+          response = Tesla.get( url )
+          status = response.status
+          body = response.body
+      "POST" ->
+          IO.puts( "This is a POST request")
+      _ ->
+          IO.puts( "Unsupported method" )
+    end
+
+    # IO.inspect( response.body )
+    send_resp( conn, status, body )
   end
 
   match _ do
     slug = Enum.at( conn.path_info, 0 )
     results = find_by_slug( slug )
+
+    api = nil
 
     if length(results) > 0 do
       api = Enum.at( results, 0 )
