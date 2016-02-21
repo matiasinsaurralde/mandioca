@@ -19,7 +19,7 @@ defmodule Mandioca.Mixfile do
   def application do
     [mod: {Mandioca, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :mongodb_ecto]]
+                    :phoenix_ecto, :mongodb_ecto, :ibrowse]]
   end
 
   # Specifies which paths to compile per environment.
@@ -37,7 +37,10 @@ defmodule Mandioca.Mixfile do
      {:phoenix_html, "~> 2.4"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:tesla, "~> 0.2.1"},
+     {:ibrowse, github: "cmullaparthi/ibrowse", ref: "b5c705c" },
+     {:exjsx, "~> 3.1.0"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.

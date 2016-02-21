@@ -3,8 +3,11 @@
   "cowlib": {:hex, :cowlib, "1.0.2"},
   "decimal": {:hex, :decimal, "1.1.1"},
   "ecto": {:hex, :ecto, "1.0.0"},
+  "exjsx": {:hex, :exjsx, "3.1.0"},
   "fs": {:hex, :fs, "0.9.2"},
   "gettext": {:hex, :gettext, "0.9.0"},
+  "ibrowse": {:git, "https://github.com/cmullaparthi/ibrowse.git", "b5c705cb8fc369cc51012eac9fd49e5f7b6a87e9", [ref: "b5c705c"]},
+  "jsx": {:hex, :jsx, "2.4.0"},
   "mongodb": {:hex, :mongodb, "0.1.1"},
   "mongodb_ecto": {:git, "git@github.com:michalmuskala/mongodb_ecto.git", "164d1ab42670f3059370a2c290be4714faaf5761", [ref: "164d1ab42670f3059370a2c290be4714faaf5761"]},
   "phoenix": {:hex, :phoenix, "1.1.4"},
@@ -14,4 +17,5 @@
   "plug": {:hex, :plug, "1.1.1"},
   "poison": {:hex, :poison, "1.5.2"},
   "poolboy": {:hex, :poolboy, "1.5.1"},
-  "ranch": {:hex, :ranch, "1.2.1"}}
+  "ranch": {:hex, :ranch, "1.2.1"},
+  "tesla": {:hex, :tesla, "0.2.1"}}
