@@ -3,7 +3,7 @@ defmodule SimplePlug.API do
 
   def load_apis() do
     apis = :ets.new( :apis, [:set, :public, :named_table])
-    :ets.insert( :apis, { "SongApi", %SimplePlug.API{ name: "SongApi", endpoint_url: "http://127.0.0.1:3000", mount_path: "/api/SongApi" } } )
+    :ets.insert( :apis, { "TestAPI", %SimplePlug.API{ name: "TestAPI", endpoint_url: "http://165.225.129.68/api", mount_path: "/api/TestAPI" } } )
   end
 
   def lookup_api_name( api_name ) do
