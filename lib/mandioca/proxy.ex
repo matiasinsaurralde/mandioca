@@ -18,8 +18,6 @@ defmodule Mandioca.Proxy do
   end
 
   def handle_request( conn, api ) do
-    # IO.inspect( conn )
-
     path = String.replace( conn.request_path, "/#{api.slug}", "" )
     url = "#{api.endpoint_url}#{path}"
 
@@ -36,23 +34,25 @@ defmodule Mandioca.Proxy do
             Tesla.get( url, respond_to: self )
           end
 
-          receive do
-            {:tesla_response, res} ->
-              Mandioca.Cache.store( url, res )
-              conn = %{conn | resp_headers: Enum.into(res.headers, [])}
-
-              conn
-              |> merge_resp_headers( [{ "server", "Mandioca" } ] )
-              |> send_resp( res.status, res.body )
-          end
-
       "POST" ->
-          IO.puts( "This is a POST request")
+          Tesla.post( url, Poison.encode!(conn.body_params), respond_to: self )
       _ ->
-          IO.puts( "Unsupported method" )
+          send self(), { :tesla_response, %{ :status => 405, :body => 'Method not allowed', :headers => [] } }
     end
 
-    # IO.inspect( response.body )
+    receive do
+      {:tesla_response, res} ->
+
+        if conn.method == "GET"  do
+          Mandioca.Cache.store( url, res )
+        end
+
+        conn = %{conn | resp_headers: Enum.into(res.headers, [])}
+
+        conn
+        |> merge_resp_headers( [{ "server", "Mandioca" } ] )
+        |> send_resp( res.status, res.body )
+    end
 
   end
 
