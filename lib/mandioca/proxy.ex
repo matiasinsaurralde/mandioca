@@ -12,22 +12,20 @@ defmodule Mandioca.Proxy do
   end
 
   def find_by_slug( slug ) do
-    # query = from a in Mandioca.API, where: a.slug == ^slug
-    # Mandioca.Repo.all( query )
-    [%{slug: "TestAPI", endpoint_url: "http://165.225.129.68/api"}]
+    query = from a in Mandioca.API, where: a.slug == ^slug
+    Mandioca.Repo.all( query )
+    # [%{slug: "TestAPI", endpoint_url: "http://165.225.129.68/api"}]
   end
 
   def handle_request( conn, api ) do
     path = String.replace( conn.request_path, "/#{api.slug}", "" )
     url = "#{api.endpoint_url}#{path}"
 
-    status = 404
-    body = "Error"
-
-    cached_item = Mandioca.Cache.exists( url )
-
     case conn.method do
       "GET" ->
+
+          cached_item = Mandioca.Cache.exists( url )
+
           if cached_item do
             send self(), { :tesla_response, cached_item }
           else
