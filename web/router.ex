@@ -20,6 +20,8 @@ defmodule Mandioca.Router do
 
     resources "/apis", APIController, except: [:new, :edit]
     resources "/users", UserController
+
+    forward "/", Proxy
   end
 
   # Other scopes may use custom stacks.
