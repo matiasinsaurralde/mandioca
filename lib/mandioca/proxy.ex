@@ -12,8 +12,9 @@ defmodule Mandioca.Proxy do
   end
 
   def find_by_slug( slug ) do
-    query = from a in Mandioca.API, where: a.slug == ^slug
-    Mandioca.Repo.all( query )
+    # query = from a in Mandioca.API, where: a.slug == ^slug
+    # Mandioca.Repo.all( query )
+    [%{slug: "TestAPI", endpoint_url: "http://165.225.129.68/api"}]
   end
 
   def handle_request( conn, api ) do
@@ -33,12 +34,16 @@ defmodule Mandioca.Proxy do
             status = cached_item.status
             body = cached_item.body
 
-          else
-            response = Tesla.get( url )
-            status = response.status
-            body = response.body
+            IO.puts("from cache")
 
-            Mandioca.Cache.store( url, response )
+            send_resp( conn, status, body )
+          else
+            Tesla.get( url, respond_to: self )
+            receive do
+              {:tesla_response, res} ->
+                Mandioca.Cache.store( url, res )
+                send_resp( conn, res.status, res.body )
+            end
           end
       "POST" ->
           IO.puts( "This is a POST request")
@@ -47,7 +52,7 @@ defmodule Mandioca.Proxy do
     end
 
     # IO.inspect( response.body )
-    send_resp( conn, status, body )
+
   end
 
   match _ do
