@@ -40,7 +40,11 @@ defmodule Mandioca.Proxy do
             receive do
               {:tesla_response, res} ->
                 Mandioca.Cache.store( url, res )
-                send_resp( conn, res.status, res.body )
+                conn = %{conn | resp_headers: Enum.into(res.headers, [])}
+
+                conn
+                |> merge_resp_headers( [{ "x-powered-by", "Mandioca" } ] )
+                |> send_resp( res.status, res.body )
             end
           end
       "POST" ->
