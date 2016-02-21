@@ -31,22 +31,21 @@ defmodule Mandioca.Proxy do
     case conn.method do
       "GET" ->
           if cached_item do
-            status = cached_item.status
-            body = cached_item.body
-
-            send_resp( conn, status, body )
+            send self(), { :tesla_response, cached_item }
           else
             Tesla.get( url, respond_to: self )
-            receive do
-              {:tesla_response, res} ->
-                Mandioca.Cache.store( url, res )
-                conn = %{conn | resp_headers: Enum.into(res.headers, [])}
-
-                conn
-                |> merge_resp_headers( [{ "x-powered-by", "Mandioca" } ] )
-                |> send_resp( res.status, res.body )
-            end
           end
+
+          receive do
+            {:tesla_response, res} ->
+              Mandioca.Cache.store( url, res )
+              conn = %{conn | resp_headers: Enum.into(res.headers, [])}
+
+              conn
+              |> merge_resp_headers( [{ "server", "Mandioca" } ] )
+              |> send_resp( res.status, res.body )
+          end
+
       "POST" ->
           IO.puts( "This is a POST request")
       _ ->
