@@ -13,6 +13,7 @@ defmodule Mandioca do
       supervisor(Mandioca.Repo, []),
       # Here you could define other workers and supervisors as children
       # worker(Mandioca.Worker, [arg1, arg2, arg3]),
+      # supervisor(Mandioca.Influx.child_spec,  [])
     ]
 
     Mandioca.Cache.prepare()
@@ -21,6 +22,8 @@ defmodule Mandioca do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Mandioca.Supervisor]
     Supervisor.start_link(children, opts)
+
+    Supervisor.start_link([ Mandioca.Influx.child_spec ], strategy: :one_for_one )
 
   end
 
