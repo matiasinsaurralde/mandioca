@@ -57,7 +57,7 @@ defmodule Mandioca.APIController do
 
   def stats(conn, %{"id" => id} ) do
     api = Repo.get!(API, id)
-    result = "SELECT count(elapsed_time) from \"#{api.slug}\" WHERE time >= now() - 30m GROUP by http_method, time(10m) ORDER by time ASC"
+    result = "SELECT count(elapsed_time) from \"#{api.slug}\" WHERE time >= now() - 1m GROUP by http_method, time(1s) ORDER by time ASC"
       |> Mandioca.Influx.query( database: "mandioca" )
       |> IO.inspect(); send self(), { :influx_response, result }
 
