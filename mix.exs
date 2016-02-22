@@ -23,7 +23,7 @@ defmodule Mandioca.Mixfile do
   def application do
     [mod: {Mandioca, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :mongodb_ecto, :ibrowse]]
+                    :phoenix_ecto, :mongodb_ecto, :ibrowse, :instream]]
   end
 
   # Specifies which paths to compile per environment.
