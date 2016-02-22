@@ -21,6 +21,8 @@ defmodule Mandioca.Router do
     resources "/apis", APIController, except: [:new, :edit]
     resources "/users", UserController
 
+    get "/apis/:id/stats", APIController, :stats
+
     forward "/", Proxy
   end
 
