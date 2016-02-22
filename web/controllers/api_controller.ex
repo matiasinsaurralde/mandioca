@@ -54,4 +54,17 @@ defmodule Mandioca.APIController do
 
     send_resp(conn, :no_content, "")
   end
+
+  def stats(conn, %{"id" => id} ) do
+    api = Repo.get!(API, id)
+    result = "SELECT count(elapsed_time) from \"#{api.slug}\" WHERE time >= now() - 30m GROUP by http_method, time(10m) ORDER by time ASC"
+      |> Mandioca.Influx.query( database: "mandioca" )
+      |> IO.inspect(); send self(), { :influx_response, result }
+
+      receive do
+        {:influx_response, response} -> IO.inspect(result)
+          conn
+          |> send_resp(200,Poison.encode!(result))
+      end
+  end
 end
