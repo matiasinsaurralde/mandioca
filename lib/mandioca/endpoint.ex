@@ -35,5 +35,7 @@ defmodule Mandioca.Endpoint do
     key: "_mandioca_key",
     signing_salt: "ozl5GiPA"
 
+  plug Corsica, origins: "http://localhost:3000"
+
   plug Mandioca.Router
 end
