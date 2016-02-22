@@ -46,6 +46,7 @@ defmodule Mandioca.Mixfile do
      {:ibrowse, github: "cmullaparthi/ibrowse", ref: "b5c705c" },
      {:exjsx, "~> 3.1.0"},
      {:earmark, "~> 0.1", only: :dev},
+     {:instream, "~> 0.9"},
      {:ex_doc, "~> 0.11", only: :dev}]
   end
 
