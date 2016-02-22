@@ -22,7 +22,7 @@ defmodule Mandioca.Proxy do
     url = "#{api.endpoint_url}#{path}"
 
     cached_item = nil
-    requested_at = :os.system_time()
+    requested_at = :os.system_time(:milli_seconds)
 
     case conn.method do
       "GET" ->
@@ -48,7 +48,7 @@ defmodule Mandioca.Proxy do
           Mandioca.Cache.store( url, res )
         end
 
-        elapsed_time = :os.system_time() - requested_at
+        elapsed_time = :os.system_time(:milli_seconds) - requested_at
 
         Mandioca.Analytics.record_hit( api, conn, res, elapsed_time, cached_item )
 
