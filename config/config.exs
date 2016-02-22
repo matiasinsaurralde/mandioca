@@ -27,3 +27,10 @@ import_config "#{Mix.env}.exs"
 config :phoenix, :generators,
   migration: false,
   binary_id: true
+
+config :mandioca, Mandioca.Influx,
+  hosts:  [ "localhost" ],
+  pool:   [ max_overflow: 0, size: 1 ],
+  port:   8086,
+  scheme: "http",
+  writer: Instream.Writer.Line
