@@ -47,6 +47,7 @@ defmodule Mandioca.Mixfile do
      {:exjsx, "~> 3.1.0"},
      {:earmark, "~> 0.1", only: :dev},
      {:instream, "~> 0.9"},
+     {:corsica, "~> 0.4"},
      {:ex_doc, "~> 0.11", only: :dev}]
   end
 
